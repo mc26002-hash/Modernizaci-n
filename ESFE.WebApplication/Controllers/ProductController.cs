@@ -93,7 +93,7 @@ namespace ESFE.WebApplication.Controllers
         {
             try
             {
-                updateProductRequest.ProductImage = await SaveImage(file, updateProductRequest.ProductImage);
+                updateProductRequest.ProductImage = await SaveImage(file, updateProductRequest.ProductImage ?? "");
                 var result = await _mediator.Send(new UpdateProductCommand(updateProductRequest));
                 if (result > 0)
                     return RedirectToAction(nameof(Index));

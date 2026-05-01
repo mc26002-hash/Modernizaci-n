@@ -39,10 +39,21 @@ namespace ESFE.WebApplication.Controllers
                 s.ProductId,
                 ProductName = s.ProductCode + " " + s.ProductName + " $" + s.PriceUnitSale
             }).ToList();
-            products.Add(new { ProductId = 0L, ProductName = "Seleccionar" });
-            ViewData["ProductId"] = new SelectList(products, "ProductId", "ProductName",0);
 
-            int userId = int.Parse(User.FindFirst("Id").Value);
+            products.Add(new { ProductId = 0L, ProductName = "Seleccionar" });
+
+            ViewData["ProductId"] = new SelectList(products, "ProductId", "ProductName", 0);
+
+            // 🔽 AQUÍ VA EL CAMBIO
+            var claim = User.FindFirst("Id");
+
+            if (claim == null)
+            {
+                throw new Exception("No se encontró el Id del usuario en los claims");
+            }
+
+            int userId = int.Parse(claim.Value);
+
             return View(new CreateQuotationRequest
             {
                 QuotationRegistration = DateTime.Now,

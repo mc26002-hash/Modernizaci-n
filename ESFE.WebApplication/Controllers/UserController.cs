@@ -46,14 +46,16 @@ namespace ESFE.WebApplication.Controllers
             try
             {
                 var userResponse = await _mediator.Send(getUserAuthenticatedQuery);
-                if (userResponse != null && userResponse.UserNickname == getUserAuthenticatedQuery.userName)
-                {                   
+                if (userResponse != null &&
+    userResponse.UserNickname == getUserAuthenticatedQuery.userName &&
+    !string.IsNullOrEmpty(userResponse.UserName))
+                {
                     var claims = new[] {
                         new Claim(ClaimTypes.Name, userResponse.UserName),
                         new Claim("Id", userResponse.UserId.ToString())
                         };
                     var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = true }); ;                  
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity), new AuthenticationProperties { IsPersistent = true }); ;
                     return RedirectToAction("Index", "Home");
                 }
                 else
