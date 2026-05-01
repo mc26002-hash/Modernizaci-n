@@ -32,13 +32,13 @@
                             <input type="hidden" name="@getName(index,"QuotationDetailId")" value="@item.QuotationDetailId" />
                         </td>
                         <td>
-                            @item.Product.ProductName
-                            <input type="hidden" name="@getName(index,"Product.ProductName")" value="@item.Product.ProductName" />
-                            <input type="hidden" name="@getName(index,"ProductId")" value="@item.ProductId" />
+                            @item.Product?.ProductName
+                            <input type="hidden" name="@getName(index, "Product.ProductName")" value="@item.Product?.ProductName" />
+                            <input type="hidden" name="@getName(index, "ProductId")" value="@item.ProductId" />
                         </td>
                         <td>
-                            @item.Product.PriceUnitSale
-                            <input type="hidden" name="@getName(index,"Product.PriceUnitSale")" value="@item.Product.PriceUnitSale" />                           
+                            @item.Product?.PriceUnitSale
+                            <input type="hidden" name="@getName(index, "Product.PriceUnitSale")" value="@item.Product?.PriceUnitSale" />
                         </td>
                         <td>
                             @item.Discount
